@@ -13,5 +13,14 @@ planning:	unsere Bastelecke, hier kann alles ausprobiert und abgelegt werden
 
 GitHub and its black holes
 
+<<<<<<< HEAD
 At the beginning this branch is for Milorad only.
 * milorad war hier *
+=======
+Weil die Gefahr besteht, dass beim Git Handling etwas in die Hosen geht und nicht mehr auf dem Server
+landet, ist es wohl klueger, wenn am Anfang jeder in seinem eigenen Zweig Code entwickelt. Damit es
+bei einem Merge nicht zu Kollisionen kommt, bitte nur am eigenen Code arbeiten solange man sich nicht
+abgesprochen hat.
+
+Eine GitHub Anleitung findet ihr auf unserer Wiki Seite.
+>>>>>>> f0eb4cc0daffab853e1bda81d7921d15f422c60c
