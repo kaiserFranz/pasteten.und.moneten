@@ -23,7 +23,8 @@ public class HashMapTest implements Konten {
 	private Map<Number, Number> nummerWert;
 
 	public HashMapTest() {
-
+		createNameWert();
+		createNummerWert();
 	}
 
 	/**

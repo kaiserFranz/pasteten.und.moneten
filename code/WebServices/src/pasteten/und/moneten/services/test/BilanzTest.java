@@ -5,9 +5,14 @@ package pasteten.und.moneten.services.test;
 
 import static org.junit.Assert.*;
 
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import pasteten.und.moneten.services.Bilanz;
+import pasteten.und.moneten.services.Konten;
 
 /**
  * @author xy
@@ -15,13 +20,16 @@ import org.junit.Test;
  * @date 15. Januar 2011
  *
  */
-public class BilanzTest {
+public class BilanzTest implements Konten {
+
+	private Bilanz bilanz;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		bilanz = new Bilanz();
 	}
 
 	/**
@@ -52,7 +60,19 @@ public class BilanzTest {
 	 */
 	@Test
 	public void testCreateKontenNamen() {
-		fail("Not yet implemented");
+		Map<Number, String> kontenNamen = bilanz.getKontenNamen();
+		int i = 0;
+		boolean condition = false;
+
+		for (Integer nummer : Konten.kontenNummern){
+			if (kontenNamen.get(nummer).equals(Konten.kontenNamen[i])) {
+				condition = true;
+			} else {
+				condition = false;
+			}
+			i++;
+		}
+		assertTrue(condition);
 	}
 
 	/**
@@ -60,7 +80,19 @@ public class BilanzTest {
 	 */
 	@Test
 	public void testCreateKontenNummern() {
-		fail("Not yet implemented");
+		Map<String, Number> kontenNummern = bilanz.getKontenNummern();
+		int i = 0;
+		boolean condition = false;
+
+		for (String name : Konten.kontenNamen) {
+			if (kontenNummern.get(name) == (Integer) Konten.kontenNummern[i]) {
+				condition = true;
+			} else {
+				condition = false;
+			}
+			i++;
+		}
+		assertTrue(condition);
 	}
 
 	/**
@@ -68,7 +100,19 @@ public class BilanzTest {
 	 */
 	@Test
 	public void testCreateNameWert() {
-		fail("Not yet implemented");
+		Map<String, Number> nameWert = bilanz.getNameWert();
+		int i = 0;
+		boolean condition = false;
+
+		for (String name : Konten.kontenNamen) {
+			if (nameWert.get(name) == (Integer) 0) {
+				condition = true;
+			} else {
+				condition = false;
+			}
+			i++;
+		}
+		assertTrue(condition);
 	}
 
 	/**
@@ -84,7 +128,19 @@ public class BilanzTest {
 	 */
 	@Test
 	public void testCreateNummerWert() {
-		fail("Not yet implemented");
+		Map<Number, Number> nummerWert = bilanz.getNummerWert();
+		int i = 0;
+		boolean condition = true;
+
+		for (Integer nummer : Konten.kontenNummern) {
+			if (nummerWert.get(nummer) == (Integer) 0) {
+				condition = true;
+			} else {
+				condition = false;
+			}
+			i++;
+		}
+		assertTrue(condition);
 	}
 
 	/**
@@ -100,7 +156,19 @@ public class BilanzTest {
 	 */
 	@Test
 	public void testCreateTmpNameWert() {
-		fail("Not yet implemented");
+		Map<String, Number> tmp_nameWert = bilanz.getTmpNameWert();
+		int i = 0;
+		boolean condition = false;
+
+		for (String name : Konten.kontenNamen) {
+			if (tmp_nameWert.get(name) == (Integer) 0) {
+				condition = true;
+			} else {
+				condition = false;
+			}
+			i++;
+		}
+		assertTrue(condition);
 	}
 
 	/**
@@ -108,7 +176,19 @@ public class BilanzTest {
 	 */
 	@Test
 	public void testCreateTmpNummerWert() {
-		fail("Not yet implemented");
+		Map<Number, Number> tmp_nummerWert = bilanz.getTmpNummerWert();
+		int i = 0;
+		boolean condition = false;
+
+		for (Integer nummer : Konten.kontenNummern) {
+			if (tmp_nummerWert.get(nummer) == (Integer) 0) {
+				condition = true;
+			} else {
+				condition = false;
+			}
+			i++;
+		}
+		assertTrue(condition);
 	}
 
 	/**
@@ -116,7 +196,30 @@ public class BilanzTest {
 	 */
 	@Test
 	public void testSetValueByName() {
-		fail("Not yet implemented");
+		Map<String, Number> nameWert = bilanz.getNameWert();
+		String konto = "Maschinen";
+		float wert = 1000;
+		boolean condition1 = false;
+		boolean condition2 = false;
+		boolean condition3 = false;
+
+		if (nameWert.get(konto).floatValue() == 0) {
+			condition1 = true;
+		}
+
+		bilanz.setValueByName(true, konto, wert);
+
+		if (nameWert.get(konto).floatValue() == wert) {
+			condition2 = true;
+		}
+
+		bilanz.setValueByName(false, konto, wert);
+
+		if (nameWert.get(konto).floatValue() == 0) {
+			condition3 = true;
+		}
+
+		assertTrue(condition1 && condition2 && condition3);
 	}
 
 	/**
@@ -128,11 +231,34 @@ public class BilanzTest {
 	}
 
 	/**
-	 * Test method for {@link pasteten.und.moneten.services.Bilanz#setValueByNumber(boolean, int, int)}.
+	 * Test method for {@link pasteten.und.moneten.services.Bilanz#setValueByNumber(boolean, int, float)}.
 	 */
 	@Test
 	public void testSetValueByNumber() {
-		fail("Not yet implemented");
+		Map<Number, Number> nummerWert = bilanz.getNummerWert();
+		int konto = 1100;
+		float wert = 1000;
+		boolean condition1 = false;
+		boolean condition2 = false;
+		boolean condition3 = false;
+
+		if (nummerWert.get(konto).floatValue() == 0) {
+			condition1 = true;
+		}
+
+		bilanz.setValueByNumber(true, konto, wert);
+
+		if (nummerWert.get(konto).floatValue() == wert) {
+			condition2 = true;
+		}
+
+		bilanz.setValueByNumber(false, konto, wert);
+
+		if (nummerWert.get(konto).floatValue() == 0) {
+			condition3 = true;
+		}
+
+		assertTrue(condition1 && condition2 && condition3);
 	}
 
 	/**
@@ -156,7 +282,20 @@ public class BilanzTest {
 	 */
 	@Test
 	public void testGetAnyValueByNumber() {
-		fail("Not yet implemented");
+		HashMapTest test = new HashMapTest();
+		bilanz.setNummerWert(test.getNummerWert());
+		float eroeffnungsbilanz = bilanz.getNummerWert().get(5000).floatValue();
+		float schlussbilanz = bilanz.getNummerWert().get(5001).floatValue();
+		float erfolgsrechnung = bilanz.getNummerWert().get(5100).floatValue();
+		float abschluss = eroeffnungsbilanz + schlussbilanz + erfolgsrechnung;
+		boolean condition = false;
+		
+		System.out.println(abschluss);
+		System.out.println(bilanz.getAnyValueByNumber(5));
+		if (bilanz.getAnyValueByNumber(5) == abschluss) {
+			condition = true;
+		}
+		assertTrue(condition);
 	}
 
 }

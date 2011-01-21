@@ -37,7 +37,8 @@ public class Bilanz implements Konten {
 		createKontenNummern();
 		createNameWert();
 		createNummerWert();
-		createTable();
+		createTmpNameWert();
+		createTmpNummerWert();
 	}
 
 	/**
@@ -137,12 +138,17 @@ public class Bilanz implements Konten {
 	 * @param key
 	 * @param value
 	 */
-	public void setValueByName(boolean plusMinus, String key, float value) {
+	public void setValueByName(boolean plusMinus, String key, float value) throws IllegalArgumentException {
+		if (!nameWert.containsKey(key)) {
+			throw new IllegalArgumentException("Bitte geben Sie einen gültigen Kontennamen an.");
+		}
+
 		tmp_nameWert.put(key, nameWert.get(key));
+
 		if (plusMinus) {
-			nameWert.put(key, value + (Float) nameWert.get(key));
+			nameWert.put(key, value + nameWert.get(key).floatValue());
 		} else {
-			nameWert.put(key, value - (Float) nameWert.get(key));
+			nameWert.put(key, value - nameWert.get(key).floatValue());
 		}
 	}
 
@@ -160,12 +166,17 @@ public class Bilanz implements Konten {
 	 * @param key
 	 * @param value
 	 */
-	public void setValueByNumber(boolean plusMinus, int key, int value) {
+	public void setValueByNumber(boolean plusMinus, int key, float value) throws IllegalArgumentException {
+		if (!nummerWert.containsKey(key)) {
+			throw new IllegalArgumentException("Bitte geben Sie einen gültige Kontennummer an.");
+		}
+
 		tmp_nummerWert.put(key, nummerWert.get(key));
+
 		if (plusMinus) {
-			nummerWert.put(key, value + (Float) nummerWert.get(key));
+			nummerWert.put(key, value + nummerWert.get(key).floatValue());
 		} else {
-			nummerWert.put(key, value - (Float) nummerWert.get(key));
+			nummerWert.put(key, value - nummerWert.get(key).floatValue());
 		}
 	}
 
@@ -204,7 +215,7 @@ public class Bilanz implements Konten {
 		float result = 0;
 
 		while (key != number) {
-			number = (Integer) it.next();
+			number = it.next().intValue();
 		}
 
 		if (number < 1000) {
@@ -212,19 +223,61 @@ public class Bilanz implements Konten {
 			while (number != key + 1) {
 
 				while (number < 1000) {
-					number = (Integer) it.next();
+					number = it.next().intValue();
 				}
 
 				while (!(number < 1000)) {
-					result += (Float) sortedMap.get(number);
-					number = (Integer) it.next();
+					result += sortedMap.get(number).floatValue();
+					number = it.next().intValue();
 				}
 			}
 			return result;
 
 		} else {
-			return (Float) sortedMap.get(number);
+			return sortedMap.get(number).floatValue();
 		}
+	}
+
+	/**
+	 * @return the kontenNamen
+	 */
+	public Map<Number, String> getKontenNamen() {
+		return kontenNamen;
+	}
+
+	/**
+	 * @return the kontenNummern
+	 */
+	public Map<String, Number> getKontenNummern() {
+		return kontenNummern;
+	}
+
+	/**
+	 * @return the tmp_nameWert
+	 */
+	public Map<String, Number> getTmpNameWert() {
+		return tmp_nameWert;
+	}
+
+	/**
+	 * @return the tmp_nummerWert
+	 */
+	public Map<Number, Number> getTmpNummerWert() {
+		return tmp_nummerWert;
+	}
+
+	/**
+	 * @param nameWert the nameWert to set
+	 */
+	public void setNameWert(Map<String, Number> nameWert) {
+		this.nameWert = nameWert;
+	}
+
+	/**
+	 * @param nummerWert the nummerWert to set
+	 */
+	public void setNummerWert(Map<Number, Number> nummerWert) {
+		this.nummerWert = nummerWert;
 	}
 
 }
