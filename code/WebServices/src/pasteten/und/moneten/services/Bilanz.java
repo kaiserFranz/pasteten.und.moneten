@@ -168,7 +168,7 @@ public class Bilanz implements Konten {
 	 */
 	public void setValueByNumber(boolean plusMinus, int key, float value) throws IllegalArgumentException {
 		if (!nummerWert.containsKey(key)) {
-			throw new IllegalArgumentException("Bitte geben Sie einen gültige Kontennummer an.");
+			throw new IllegalArgumentException("Bitte geben Sie eine gültige Kontennummer an.");
 		}
 
 		tmp_nummerWert.put(key, nummerWert.get(key));
@@ -194,12 +194,12 @@ public class Bilanz implements Konten {
 	 * @return value you are looking for by name
 	 */
 	public float getAnyValueByName(String key) throws IllegalArgumentException {
-		if (!kontenNamen.containsKey(key)) {
+		if (kontenNamen.containsKey(key)) {
 			throw new IllegalArgumentException("Bitte geben Sie einen gültigen Kontennamen an.");
 		}
 
-		int secondaryKey = (Integer) kontenNummern.get(key);
-		return getAnyValueByNumber(secondaryKey);
+		int secKey = kontenNummern.get(key).intValue();
+		return getAnyValueByNumber(secKey);
 	}
 
 	/**
@@ -207,35 +207,54 @@ public class Bilanz implements Konten {
 	 * @param key
 	 * @return value you are looking for by number
 	 */
-	public float getAnyValueByNumber(int key) {
+	public float getAnyValueByNumber(int key) throws IllegalArgumentException {
+		if (kontenNummern.containsKey(key)) {
+			throw new IllegalArgumentException("Bitte geben Sie eine gültige Kontennummer an.");
+		}
+
 		Map<Number, Number> sortedMap = new TreeMap<Number, Number>(nummerWert);
 		Set<Number> ref = sortedMap.keySet();
 		Iterator<Number> it = ref.iterator();
 		int number = 0;
 		float result = 0;
 
-		while (key != number) {
-			number = it.next().intValue();
-		}
+		if (key < 10) {
+			while (number != key * 1000) {
+				number = it.next().intValue();
+			}
 
-		if (number < 1000) {
+			while (number < (key + 1) * 1000) {
+				result += sortedMap.get(number).floatValue();
+				number = it.next().intValue();
+			}
+			return result;
 
-			while (number != key + 1) {
+		} else if (key < 100) {
+			while (number != key * 100) {
+				number = it.next().intValue();
+			}
 
-				while (number < 1000) {
-					number = it.next().intValue();
-				}
+			while (number < (key + 1) * 100) {
+				result += sortedMap.get(number).floatValue();
+				number = it.next().intValue();
+			}
+			return result;
 
-				while (!(number < 1000)) {
-					result += sortedMap.get(number).floatValue();
-					number = it.next().intValue();
-				}
+		} else if ( key < 1000) {
+			while (number != key * 10) {
+				number = it.next().intValue();
+			}
+
+			while (number < (key + 1) * 10) {
+				result += sortedMap.get(number).floatValue();
+				number = it.next().intValue();
 			}
 			return result;
 
 		} else {
 			return sortedMap.get(number).floatValue();
 		}
+
 	}
 
 	/**

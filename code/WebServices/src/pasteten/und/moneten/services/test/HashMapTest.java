@@ -23,8 +23,9 @@ public class HashMapTest implements Konten {
 	private Map<Number, Number> nummerWert;
 
 	public HashMapTest() {
-		createNameWert();
-		createNummerWert();
+		//		createNameWert();
+		//		createNummerWert();
+		createMaps();
 	}
 
 	/**
@@ -53,6 +54,27 @@ public class HashMapTest implements Konten {
 			rand /= 100;
 			nummerWert.put(nummer, rand);
 		}
+	}
+
+	/**
+	 * Die Methode initialisiert alle Konten nach Namen
+	 * und Nummern mit einem beliebigen Betrag von 1000 - 9000 CHF.
+	 */
+	public void createMaps() {
+		nameWert = new HashMap<String, Number>();
+		nummerWert = new HashMap<Number, Number>();
+		int i = 0;
+
+		for (String name : Konten.kontenNamen) {
+			double rand = Math.round(((Math.random() * 9000) + 1000) * 100);
+			rand -= rand % 5;
+			rand /= 100;
+			nameWert.put(name, rand);
+
+			nummerWert.put(Konten.kontenNummern[i], rand);
+			i++;
+		}
+
 	}
 
 	/**

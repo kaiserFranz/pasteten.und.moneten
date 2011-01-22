@@ -82,7 +82,8 @@ public interface Konten {
 			"Eröffnungsbilanz",
 			"Schlussbilanz",
 			"Erfolgsrechnung",
-			"Geisterkonto"
+			"Geisterkonto1",
+			"Geisterkonto2"
 	};
 
 	/**
@@ -149,7 +150,8 @@ public interface Konten {
 			5000,
 			5001,
 			5100,
-			6
+			6,
+			6000
 	};
 
 	/**

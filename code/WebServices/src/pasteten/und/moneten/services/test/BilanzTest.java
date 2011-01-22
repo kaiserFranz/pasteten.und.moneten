@@ -23,6 +23,7 @@ import pasteten.und.moneten.services.Konten;
 public class BilanzTest implements Konten {
 
 	private Bilanz bilanz;
+	private HashMapTest test;
 
 	/**
 	 * @throws java.lang.Exception
@@ -30,6 +31,7 @@ public class BilanzTest implements Konten {
 	@Before
 	public void setUp() throws Exception {
 		bilanz = new Bilanz();
+		test = new HashMapTest();
 	}
 
 	/**
@@ -44,15 +46,7 @@ public class BilanzTest implements Konten {
 	 */
 	@Test
 	public void testBilanz() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link pasteten.und.moneten.services.Bilanz#createTable()}.
-	 */
-	@Test
-	public void testCreateTable() {
-		fail("Not yet implemented");
+		assertNotNull(bilanz);
 	}
 
 	/**
@@ -85,7 +79,7 @@ public class BilanzTest implements Konten {
 		boolean condition = false;
 
 		for (String name : Konten.kontenNamen) {
-			if (kontenNummern.get(name) == (Integer) Konten.kontenNummern[i]) {
+			if (kontenNummern.get(name).intValue() == Konten.kontenNummern[i]) {
 				condition = true;
 			} else {
 				condition = false;
@@ -105,7 +99,7 @@ public class BilanzTest implements Konten {
 		boolean condition = false;
 
 		for (String name : Konten.kontenNamen) {
-			if (nameWert.get(name) == (Integer) 0) {
+			if (nameWert.get(name).intValue() == 0) {
 				condition = true;
 			} else {
 				condition = false;
@@ -113,14 +107,6 @@ public class BilanzTest implements Konten {
 			i++;
 		}
 		assertTrue(condition);
-	}
-
-	/**
-	 * Test method for {@link pasteten.und.moneten.services.Bilanz#getNameWert()}.
-	 */
-	@Test
-	public void testGetNameWert() {
-		fail("Not yet implemented");
 	}
 
 	/**
@@ -133,7 +119,7 @@ public class BilanzTest implements Konten {
 		boolean condition = true;
 
 		for (Integer nummer : Konten.kontenNummern) {
-			if (nummerWert.get(nummer) == (Integer) 0) {
+			if (nummerWert.get(nummer).intValue() == 0) {
 				condition = true;
 			} else {
 				condition = false;
@@ -141,14 +127,6 @@ public class BilanzTest implements Konten {
 			i++;
 		}
 		assertTrue(condition);
-	}
-
-	/**
-	 * Test method for {@link pasteten.und.moneten.services.Bilanz#getNummerWert()}.
-	 */
-	@Test
-	public void testGetNummerWert() {
-		fail("Not yet implemented");
 	}
 
 	/**
@@ -161,7 +139,7 @@ public class BilanzTest implements Konten {
 		boolean condition = false;
 
 		for (String name : Konten.kontenNamen) {
-			if (tmp_nameWert.get(name) == (Integer) 0) {
+			if (tmp_nameWert.get(name).intValue() == 0) {
 				condition = true;
 			} else {
 				condition = false;
@@ -181,7 +159,7 @@ public class BilanzTest implements Konten {
 		boolean condition = false;
 
 		for (Integer nummer : Konten.kontenNummern) {
-			if (tmp_nummerWert.get(nummer) == (Integer) 0) {
+			if (tmp_nummerWert.get(nummer).intValue() == 0) {
 				condition = true;
 			} else {
 				condition = false;
@@ -227,7 +205,21 @@ public class BilanzTest implements Konten {
 	 */
 	@Test
 	public void testResetValueByName() {
-		fail("Not yet implemented");
+		bilanz.setNameWert(test.getNameWert());
+		String konto = "Warenertrag";
+		float betrag = 2000;
+		float wert1 = bilanz.getNameWert().get(konto).floatValue();
+
+		bilanz.setValueByName(false, konto, betrag);
+		bilanz.resetValueByName(konto);
+
+		float wert2 = bilanz.getNameWert().get(konto).floatValue();
+		boolean condition = false;
+
+		if (wert1 == wert2) {
+			condition = true;
+		}
+		assertTrue(condition);
 	}
 
 	/**
@@ -237,7 +229,7 @@ public class BilanzTest implements Konten {
 	public void testSetValueByNumber() {
 		Map<Number, Number> nummerWert = bilanz.getNummerWert();
 		int konto = 1100;
-		float wert = 1000;
+		float betrag = 1000;
 		boolean condition1 = false;
 		boolean condition2 = false;
 		boolean condition3 = false;
@@ -246,13 +238,13 @@ public class BilanzTest implements Konten {
 			condition1 = true;
 		}
 
-		bilanz.setValueByNumber(true, konto, wert);
+		bilanz.setValueByNumber(true, konto, betrag);
 
-		if (nummerWert.get(konto).floatValue() == wert) {
+		if (nummerWert.get(konto).floatValue() == betrag) {
 			condition2 = true;
 		}
 
-		bilanz.setValueByNumber(false, konto, wert);
+		bilanz.setValueByNumber(false, konto, betrag);
 
 		if (nummerWert.get(konto).floatValue() == 0) {
 			condition3 = true;
@@ -266,7 +258,21 @@ public class BilanzTest implements Konten {
 	 */
 	@Test
 	public void testResetValueByNumber() {
-		fail("Not yet implemented");
+		bilanz.setNummerWert(test.getNummerWert());
+		int konto = 4000;
+		float betrag = 2000;
+		float wert1 = bilanz.getNummerWert().get(konto).floatValue();
+
+		bilanz.setValueByNumber(false, konto, betrag);
+		bilanz.resetValueByNumber(konto);
+
+		float wert2 = bilanz.getNummerWert().get(konto).floatValue();
+		boolean condition = false;
+
+		if (wert1 == wert2) {
+			condition = true;
+		}
+		assertTrue(condition);
 	}
 
 	/**
@@ -274,7 +280,19 @@ public class BilanzTest implements Konten {
 	 */
 	@Test
 	public void testGetAnyValueByName() {
-		fail("Not yet implemented");
+		bilanz.setNameWert(test.getNameWert());
+		// Die Methode arbeitet intern mit der GetAnyValueByNumber-Methode weiter
+		bilanz.setNummerWert(test.getNummerWert());
+		float eroeffnungsbilanz = bilanz.getNameWert().get("Eröffnungsbilanz").floatValue();
+		float schlussbilanz = bilanz.getNameWert().get("Schlussbilanz").floatValue();
+		float erfolgsrechnung = bilanz.getNameWert().get("Erfolgsrechnung").floatValue();
+		float abschluss = eroeffnungsbilanz + schlussbilanz + erfolgsrechnung;
+		boolean condition = false;
+
+		if (bilanz.getAnyValueByName("Abschluss") == abschluss) {
+			condition = true;
+		}
+		assertTrue(condition);
 	}
 
 	/**
@@ -282,16 +300,13 @@ public class BilanzTest implements Konten {
 	 */
 	@Test
 	public void testGetAnyValueByNumber() {
-		HashMapTest test = new HashMapTest();
 		bilanz.setNummerWert(test.getNummerWert());
 		float eroeffnungsbilanz = bilanz.getNummerWert().get(5000).floatValue();
 		float schlussbilanz = bilanz.getNummerWert().get(5001).floatValue();
 		float erfolgsrechnung = bilanz.getNummerWert().get(5100).floatValue();
 		float abschluss = eroeffnungsbilanz + schlussbilanz + erfolgsrechnung;
 		boolean condition = false;
-		
-		System.out.println(abschluss);
-		System.out.println(bilanz.getAnyValueByNumber(5));
+
 		if (bilanz.getAnyValueByNumber(5) == abschluss) {
 			condition = true;
 		}
