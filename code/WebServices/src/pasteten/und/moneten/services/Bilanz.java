@@ -299,4 +299,11 @@ public class Bilanz implements Konten {
 		this.nummerWert = nummerWert;
 	}
 
+	/**
+	 * @return the bilanz
+	 */
+	public Bilanz getBilanz() {
+		return this;
+	}
+
 }

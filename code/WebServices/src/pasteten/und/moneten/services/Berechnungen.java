@@ -72,16 +72,17 @@ public class Berechnungen {
 	 * Cashflow
 	 */
 	private float n_aufwand;
-	private float n_ertrag;
+	//	private float n_ertrag;
 
+	private Bilanz bilanz;
 
-	public Berechnungen() {
+	public Berechnungen(Bilanz bilanz) {
+		this.bilanz = bilanz;
 		createValues();
 	}
 
 	public void createValues() {
 		// Aktiven
-		Bilanz bilanz = new Bilanz();
 		n_fluessigeMittel = bilanz.getAnyValueByNumber(100);
 		n_forderungen = bilanz.getAnyValueByNumber(101);
 		n_anlagevermoegen = bilanz.getAnyValueByNumber(11);
@@ -98,7 +99,7 @@ public class Berechnungen {
 		n_aufwand = bilanz.getAnyValueByNumber(3);
 
 		// Ertrag
-		n_ertrag = bilanz.getAnyValueByNumber(4);
+		//		n_ertrag = bilanz.getAnyValueByNumber(4);
 
 	}
 
@@ -107,7 +108,7 @@ public class Berechnungen {
 	 * Die Software berechnet die Intensität des Anlagevermögens
 	 * @return Intensität des Anlagevermögens
 	 */
-	public float IntensitaetAnlagevermoegen() {
+	public float getIntensitaetAnlagevermoegen() {
 		return n_anlagevermoegen * 100 / n_gesamtvermoegen;
 	}
 
@@ -144,7 +145,8 @@ public class Berechnungen {
 	}
 
 	/**
-	 * Die Software berechnet die Rentabilität des Eigenkapitals
+	 * Die Software berechnet die Rentabilität des Eigenkapitals,
+	 * der Gewinn ist aber noch nicht verfügbar.
 	 * @return Rentabilität des Eigenkapitals
 	 */
 	public float getRentabilitaetEigenkapital() {
@@ -152,7 +154,8 @@ public class Berechnungen {
 	}
 
 	/**
-	 * Die Software berechnet die Rentabilität des Gesamtkapitals
+	 * Die Software berechnet die Rentabilität des Gesamtkapitals,
+	 * der Gewinn und die Zinsen sind aber noch nicht verfügbar.
 	 * @return Rentabilität des Gesamtkapitals
 	 */
 	public float getRentabilitaetGesamtkapital() {
@@ -185,6 +188,104 @@ public class Berechnungen {
 	public float getCashflow() {
 		return n_gewinn + n_aufwand;
 		//		return n_ertrag - n_aufwand;
+	}
+
+	/**
+	 * @return the n_anlagevermoegen
+	 */
+	public float getN_anlagevermoegen() {
+		return n_anlagevermoegen;
+	}
+
+	/**
+	 * @return the n_gesamtvermoegen
+	 */
+	public float getN_gesamtvermoegen() {
+		return n_gesamtvermoegen;
+	}
+
+	/**
+	 * @return the n_fremdkapital
+	 */
+	public float getN_fremdkapital() {
+		return n_fremdkapital;
+	}
+
+	/**
+	 * @return the n_gesamtkapital
+	 */
+	public float getN_gesamtkapital() {
+		return n_gesamtkapital;
+	}
+
+	/**
+	 * @return the n_eigenkapital
+	 */
+	public float getN_eigenkapital() {
+		return n_eigenkapital;
+	}
+
+	/**
+	 * @return the n_fluessigeMittel
+	 */
+	public float getN_fluessigeMittel() {
+		return n_fluessigeMittel;
+	}
+
+	/**
+	 * @return the n_forderungen
+	 */
+	public float getN_forderungen() {
+		return n_forderungen;
+	}
+
+	/**
+	 * @return the n_kurzfristigesFremdkapital
+	 */
+	public float getN_kurzfristigesFremdkapital() {
+		return n_kurzfristigesFremdkapital;
+	}
+
+	/**
+	 * @return the n_langfristigesFremdkapital
+	 */
+	public float getN_langfristigesFremdkapital() {
+		return n_langfristigesFremdkapital;
+	}
+
+	/**
+	 * @return the n_gewinn
+	 */
+	public float getN_gewinn() {
+		return n_gewinn;
+	}
+
+	/**
+	 * @return the n_zinsen
+	 */
+	public float getN_zinsen() {
+		return n_zinsen;
+	}
+
+	/**
+	 * @return the n_umsatz
+	 */
+	public float getN_umsatz() {
+		return n_umsatz;
+	}
+
+	/**
+	 * @return the n_bruttogewinn
+	 */
+	public float getN_bruttogewinn() {
+		return n_bruttogewinn;
+	}
+
+	/**
+	 * @return the n_aufwand
+	 */
+	public float getN_aufwand() {
+		return n_aufwand;
 	}
 
 }
