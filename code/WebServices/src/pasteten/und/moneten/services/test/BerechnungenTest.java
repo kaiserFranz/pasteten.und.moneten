@@ -188,5 +188,4 @@ public class BerechnungenTest {
 	//	public void testGetCashflow() {
 	//		fail("Not yet implemented");
 	//	}
-
 }
