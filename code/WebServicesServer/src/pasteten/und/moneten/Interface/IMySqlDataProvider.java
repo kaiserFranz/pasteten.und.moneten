@@ -11,4 +11,8 @@ public interface IMySqlDataProvider {
 
 	public int UserFunctions(String username, String password, String function) throws SQLException;
 	
+	public String[] GetUserBalances(int userId);
+	
+	public Boolean InsertUserBalanceBooking(int bookingId, int balanceId, int strucId, float bookingValue);
+	
 }
