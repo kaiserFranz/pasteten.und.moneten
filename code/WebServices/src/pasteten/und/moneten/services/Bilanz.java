@@ -12,7 +12,7 @@ import javax.jws.soap.SOAPBinding.Style;
 
 /**
  * Die Bilanz stellt die einzelnen Konten und
- * die darin enthaltenen Betr&auml;ge zur Verfügung.
+ * die darin enthaltenen Beträge zur Verfügung.
  * 
  * @author siddhartha
  * @version 1.01
